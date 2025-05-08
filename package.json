@@ -1,0 +1,54 @@
+{
+  "name": "electron-python-app",
+  "version": "1.0.0",
+  "description": "A simple Electron application that runs Python commands without requiring Python installation",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --mac --linux",
+    "postinstall": "electron-builder install-app-deps && pyinstaller --onefile src/python/script.py"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "electron-is-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.example.electron-python-app",
+    "productName": "Electron Python App",
+    "files": [
+      "**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "!dist",
+      "!build",
+      "!{.eslintrc.json,.eslintrc.js,.eslintignore}",
+      "!src/python"
+    ],
+    "extraResources": [
+      {
+        "from": "dist",
+        "to": "app/dist"
+      },
+      {
+        "from": "src/python",
+        "to": "app/python"
+      }
+    ],
+    "win": {
+      "target": ["portable"]
+    },
+    "mac": {
+      "target": ["dmg"]
+    },
+    "linux": {
+      "target": ["AppImage"]
+    }
+  }
+}
